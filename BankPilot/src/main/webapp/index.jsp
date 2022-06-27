@@ -1,4 +1,4 @@
-<%@page import="com.banks.entities.Customer"%>
+<%@page import="com.banks.dao.Customer"%>
 <%@ page import = "java.io.*,java.util.*" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"

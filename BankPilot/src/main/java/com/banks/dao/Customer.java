@@ -1,4 +1,4 @@
-package com.banks.entities;
+package com.banks.dao;
 
 import java.util.HashMap;
 

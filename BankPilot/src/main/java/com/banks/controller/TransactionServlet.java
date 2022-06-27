@@ -1,4 +1,4 @@
-package com.banks.servlets;
+package com.banks.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

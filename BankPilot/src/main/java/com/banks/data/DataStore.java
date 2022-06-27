@@ -3,9 +3,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import com.banks.entities.Account;
-import com.banks.entities.Customer;
-import com.banks.entities.Transaction;
+import com.banks.dao.Account;
+import com.banks.dao.Customer;
+import com.banks.dao.Transaction;
 import com.banks.types.AccountType;
 import com.banks.types.TransactionType;
 

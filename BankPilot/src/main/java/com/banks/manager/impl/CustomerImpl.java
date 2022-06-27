@@ -1,10 +1,11 @@
-package com.banks.persistence;
+package com.banks.manager.impl;
 
 import java.util.HashMap;
 
+import com.banks.dao.Account;
+import com.banks.dao.Customer;
 import com.banks.data.DataStore;
-import com.banks.entities.Account;
-import com.banks.entities.Customer;
+import com.banks.manager.interfaces.CustomerIF;
 
 public class CustomerImpl implements CustomerIF{
 	public Customer addCustomer(int customerID, String customerName, HashMap<String, Account> hmAccount, int birthYear) {

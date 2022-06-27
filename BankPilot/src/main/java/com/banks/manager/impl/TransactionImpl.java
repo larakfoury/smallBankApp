@@ -1,7 +1,8 @@
-package com.banks.persistence;
+package com.banks.manager.impl;
 
+import com.banks.dao.Transaction;
 import com.banks.data.DataStore;
-import com.banks.entities.Transaction;
+import com.banks.manager.interfaces.TransactionIF;
 import com.banks.types.TransactionType;
 
 public class TransactionImpl implements TransactionIF{

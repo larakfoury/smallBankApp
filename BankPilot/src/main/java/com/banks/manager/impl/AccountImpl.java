@@ -1,13 +1,14 @@
-package com.banks.persistence;
+package com.banks.manager.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.banks.dao.Account;
+import com.banks.dao.Transaction;
 import com.banks.data.DataStore;
-import com.banks.entities.Account;
-import com.banks.entities.Transaction;
+import com.banks.manager.interfaces.AccountIF;
 import com.banks.types.AccountType;
 
 public class AccountImpl implements AccountIF {

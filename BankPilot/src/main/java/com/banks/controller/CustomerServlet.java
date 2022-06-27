@@ -1,8 +1,7 @@
-package com.banks.servlets;
+package com.banks.controller;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,14 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.banks.entities.Customer;
-import com.banks.entities.Transaction;
-import com.banks.persistence.AccountIF;
-import com.banks.persistence.AccountImpl;
-import com.banks.persistence.CustomerIF;
-import com.banks.persistence.CustomerImpl;
-import com.banks.persistence.TransactionIF;
-import com.banks.persistence.TransactionImpl;
+import com.banks.dao.Customer;
+import com.banks.dao.Transaction;
+import com.banks.manager.impl.AccountImpl;
+import com.banks.manager.impl.CustomerImpl;
+import com.banks.manager.impl.TransactionImpl;
+import com.banks.manager.interfaces.AccountIF;
+import com.banks.manager.interfaces.CustomerIF;
+import com.banks.manager.interfaces.TransactionIF;
 import com.banks.types.AccountType;
 import com.banks.types.TransactionType;
 
