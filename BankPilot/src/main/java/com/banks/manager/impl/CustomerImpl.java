@@ -2,10 +2,10 @@ package com.banks.manager.impl;
 
 import java.util.HashMap;
 
-import com.banks.dao.Account;
-import com.banks.dao.Customer;
-import com.banks.data.DataStore;
+import com.banks.dao.inmemory.DataStore;
 import com.banks.manager.interfaces.CustomerIF;
+import com.banks.model.Account;
+import com.banks.model.Customer;
 
 public class CustomerImpl implements CustomerIF{
 	public Customer addCustomer(int customerID, String customerName, HashMap<String, Account> hmAccount, int birthYear) {

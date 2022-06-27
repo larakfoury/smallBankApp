@@ -1,11 +1,12 @@
-package com.banks.data;
+package com.banks.dao.inmemory;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import com.banks.dao.Account;
-import com.banks.dao.Customer;
-import com.banks.dao.Transaction;
+import com.banks.dao.inmemory.interfaces.DataStoreIF;
+import com.banks.model.Account;
+import com.banks.model.Customer;
+import com.banks.model.Transaction;
 import com.banks.types.AccountType;
 import com.banks.types.TransactionType;
 
@@ -13,7 +14,7 @@ import com.banks.types.TransactionType;
  * Example DataStore class that provides access to user data.
  * Pretend this class accesses a database.
  */
-public class DataStore {
+public class DataStore implements DataStoreIF{
 
 	//Map of names to Person instances.
 	private static Map<String, Customer> customerMap = new HashMap<>();
@@ -23,8 +24,8 @@ public class DataStore {
 	private static int transIdToBeInc = 4;
 
 	//this class is a singleton and should not be instantiated directly!
-	private static DataStore instance;
-	public static DataStore getInstance(){
+	private static DataStoreIF instance;
+	public static DataStoreIF getInstance(){
 		if (instance == null) {
 			instance = new DataStore();
 			return instance;

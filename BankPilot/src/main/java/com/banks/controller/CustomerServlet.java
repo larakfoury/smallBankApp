@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.banks.dao.Customer;
-import com.banks.dao.Transaction;
 import com.banks.manager.impl.AccountImpl;
 import com.banks.manager.impl.CustomerImpl;
 import com.banks.manager.impl.TransactionImpl;
 import com.banks.manager.interfaces.AccountIF;
 import com.banks.manager.interfaces.CustomerIF;
 import com.banks.manager.interfaces.TransactionIF;
+import com.banks.model.Customer;
+import com.banks.model.Transaction;
 import com.banks.types.AccountType;
 import com.banks.types.TransactionType;
 

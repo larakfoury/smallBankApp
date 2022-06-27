@@ -1,8 +1,8 @@
 package com.banks.manager.impl;
 
-import com.banks.dao.Transaction;
-import com.banks.data.DataStore;
+import com.banks.dao.inmemory.DataStore;
 import com.banks.manager.interfaces.TransactionIF;
+import com.banks.model.Transaction;
 import com.banks.types.TransactionType;
 
 public class TransactionImpl implements TransactionIF{

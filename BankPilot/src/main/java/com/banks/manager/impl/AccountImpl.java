@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.banks.dao.Account;
-import com.banks.dao.Transaction;
-import com.banks.data.DataStore;
+import com.banks.dao.inmemory.DataStore;
 import com.banks.manager.interfaces.AccountIF;
+import com.banks.model.Account;
+import com.banks.model.Transaction;
 import com.banks.types.AccountType;
 
 public class AccountImpl implements AccountIF {

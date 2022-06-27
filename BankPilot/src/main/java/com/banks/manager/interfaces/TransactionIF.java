@@ -1,6 +1,6 @@
 package com.banks.manager.interfaces;
 
-import com.banks.dao.Transaction;
+import com.banks.model.Transaction;
 import com.banks.types.TransactionType;
 
 public interface TransactionIF {

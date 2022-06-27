@@ -3,8 +3,8 @@ package com.banks.manager.interfaces;
 import java.util.HashMap;
 import java.util.List;
 
-import com.banks.dao.Account;
-import com.banks.dao.Transaction;
+import com.banks.model.Account;
+import com.banks.model.Transaction;
 import com.banks.types.AccountType;
 
 public interface AccountIF {
