@@ -1,4 +1,4 @@
-<%@page import="com.banks.dao.Customer"%>
+<%@page import="com.banks.model.Customer"%>
 <%@ page import = "java.io.*,java.util.*" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -7,47 +7,59 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
 <title>Bank Software</title>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 </head>
 <body>
 <FORM>
 
+<label for="name">Choose a name:</label>
 
-Name: <input type = "text" name = "name" id = "name">
+<select name="name" id="name">
+  <option value="Ada">Ada</option>
+  <option value="Kevin">Kevin</option>
+  <option value="Stanley">Stanley</option>
+</select>
+<label for="initialCredit">Initial Credit</label>
+          <input type="text" name = "initialCredit" id = "initialCredit" />
          <br />
-         About: <input type = "text" name = "about" id= "about"/>
-         Birth Year: <input type = "text" name = "birthYear" id = "birthYear" />
-         <input type = "button" value = "Submit" id="submit" />
+         <input type = "button" value = "add new account" id="submit" />
          
          <hr />
          
-         Search By Name: <input type = "text" name = "searchbyname" id = "searchbyname">
-                  <INPUT TYPE="BUTTON" VALUE="Get Info for name"  id="getInfo" />
-         <div id="info" style="display: none;">
-         <h3> Person information: </h3>
-         
-</div>
+         Search By Name:
+         <select name="searchbyname" id="searchbyname">
+		  <option value="Ada">Ada</option>
+		  <option value="Kevin">Kevin</option>
+		  <option value="Stanley">Stanley</option>
+		</select>
+        <INPUT TYPE="BUTTON" VALUE="get account info"  id="getInfo" />
+         <div id="info" style="display: none;">         
+		</div>
 
          
          <script type="text/javascript">
     $("#submit").click(function() {
     	var name = $("#name").val();
-        var about = $("#about").val();
-        var birthYear = $("#birthYear").val();
+    	var initialCredit = $("#initialCredit").val();
+    	alert(initialCredit);
         $.ajax({
             url: '/customer',
             type: 'POST',
             data: {
             	name: name,
-            	about: about,
-            	birthYear: birthYear
+            	initialCredit: initialCredit
             },
             success: function(data) {
-                alert('Person created successfully');
+                alert('Customer account created successfully');
             },
             failure: function(data) {
-                alert('person creation Failed');
+                alert('Customer account creation Failed');
             }
         });
     });
@@ -63,7 +75,7 @@ Name: <input type = "text" name = "name" id = "name">
             },
             success: function(response) {
             	$('#info').html(response); 
-                alert('Person info retreived successfully');
+                alert('Customer info retreived successfully');
                 $( "#info" ).show();
             },
             failure: function(data) {

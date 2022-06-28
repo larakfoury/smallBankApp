@@ -1,6 +1,7 @@
 package com.banks.controller;
 
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -8,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONObject;
 
 import com.banks.manager.impl.AccountImpl;
 import com.banks.manager.impl.CustomerImpl;
@@ -44,14 +47,14 @@ public class CustomerServlet extends HttpServlet {
 
 		
 		String requestUrl = request.getRequestURI();
-		String name = requestUrl.substring("/customer".length()) != null && !requestUrl.substring("/customer".length()).isEmpty()?requestUrl.substring("/customer".length()):request.getParameter("name") ;
+		String name = requestUrl.substring("/customer".length()) != null && !requestUrl.substring("/customer".length()).isEmpty()?requestUrl.substring("/customer/".length()):request.getParameter("name") ;
 		
 		CustomerIF c = new CustomerImpl();
 		
 		Customer person = c.getCustomer(name);
 		
 		AccountIF acc = new AccountImpl();
-		if(person != null){
+		if(request.getParameter("name") != null && person != null){
 			request.setAttribute("customerName", person.getCustomerName());
 			request.setAttribute("birthYear", person.getBirthYear());
 			request.setAttribute("balance", acc.getBalance(person.getCustomerID()) );
@@ -61,7 +64,8 @@ public class CustomerServlet extends HttpServlet {
 			response.setCharacterEncoding("UTF-8"); 
 			
 					
-					String output = "<table>\r\n"
+					String output = "<h3> Person information: </h3>"
+					+		"<table>\r\n"
 					+ "         <tr>\r\n"
 					+ "         <td>Name: </td>\r\n"
 					+ "         <td>"+ person.getCustomerName() +"</td>\r\n"
@@ -99,6 +103,30 @@ public class CustomerServlet extends HttpServlet {
 						output += "         </table>";
 					}
 			response.getWriter().print(output);
+		}else if (person != null) {
+			String json = "{\n";
+			json += "\"name\": " + JSONObject.quote(person.getCustomerName()) + ",\n";
+			json += "\"Balance\": " + JSONObject.quote(String.valueOf(acc.getBalance(person.getCustomerID()))) + ",\n";
+			json += "\"birthYear\": " + person.getBirthYear() + "\n";
+			
+			List<Transaction> transByCustomer = acc.getListTransactionsByCustomer(person.getCustomerID());
+			
+			if(transByCustomer != null && !transByCustomer.isEmpty()) {	
+				for (int i = 0; i < transByCustomer.size(); i++) {
+					Transaction t = transByCustomer.get(i);
+					json += "{\"Account No\": " + JSONObject.quote(String.valueOf(t.getAccountNumber())) + ","
+							+ "\"Amount\": " + JSONObject.quote(String.valueOf(t.getAmount())) + ","
+							+ "\"Transaction Type\": " + JSONObject.quote(String.valueOf(t.getTransactionType())) + "}";
+					
+					if(i !=transByCustomer.size() - 1) {
+						json += ",\n";
+					}else {
+						json += "\n";
+					}
+				}
+			}
+			json += "}";
+			response.getOutputStream().println(json);
 		}
 	}
 	
@@ -107,9 +135,25 @@ public class CustomerServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		String requestUrl = request.getRequestURI();
-		String name = requestUrl.substring("/customer".length()) != null && !requestUrl.substring("/customer".length()).isEmpty()?requestUrl.substring("/customer".length()):request.getParameter("name") ;
+		// String requestUrl = request.getRequestURI();
+		String name = "";
+		String initialCredit ="";
+		// String name = requestUrl.substring("/customer".length()) != null && !requestUrl.substring("/customer".length()).isEmpty()?requestUrl.substring("/customer".length()):request.getParameter("name") ;
 		// String initialCredit = requestUrl.substring("/customer/".length()) != null?requestUrl.substring(requestUrl.indexOf("/customer/"), requestUrl.indexOf("&")):request.getParameter("initialCredit") ;
+		
+		Enumeration<String> parameterNames = request.getParameterNames();
+		 
+        while (parameterNames.hasMoreElements()) {
+ 
+            String paramName = parameterNames.nextElement();
+ 
+            if(paramName.equalsIgnoreCase("name")) {
+            	name = request.getParameter(paramName) ;
+            }else if (paramName.equalsIgnoreCase("initialCredit")) {
+            	initialCredit = request.getParameter("initialCredit");
+            }
+ 
+        }
 		
 		CustomerIF c = new CustomerImpl();
 		
@@ -117,12 +161,13 @@ public class CustomerServlet extends HttpServlet {
 		
 		AccountIF acc = new AccountImpl();
 		
-		Double balance = acc.getBalance(person.getCustomerID());
-		acc.addAccount(Double.valueOf(0), AccountType.CURRENT, null, person.getCustomerID());
-		if(balance != 0) {
+		// Double balance = acc.getBalance(person.getCustomerID());
+		acc.addAccount(Double.valueOf(initialCredit), AccountType.CURRENT, null, person.getCustomerID());
+		if(Double.valueOf(initialCredit) != 0) {
 			TransactionIF trans = new TransactionImpl();
 			trans.addTransaction(TransactionType.DEBIT, 10, acc.getAccountNo(), person.getCustomerID());
 		}
+		response.getOutputStream().println("Account added successfully");
 	}
 
 

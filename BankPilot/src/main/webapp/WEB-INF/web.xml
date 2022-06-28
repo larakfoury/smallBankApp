@@ -12,7 +12,7 @@
   
   <servlet>
 		<servlet-name>CustomerServlet</servlet-name>
-		<servlet-class>com.banks.servlets.CustomerServlet</servlet-class>
+		<servlet-class>com.banks.controller.CustomerServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>

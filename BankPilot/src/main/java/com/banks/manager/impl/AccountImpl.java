@@ -10,6 +10,7 @@ import com.banks.manager.interfaces.AccountIF;
 import com.banks.model.Account;
 import com.banks.model.Transaction;
 import com.banks.types.AccountType;
+import com.banks.types.TransactionType;
 
 public class AccountImpl implements AccountIF {
 	
@@ -38,7 +39,16 @@ public class AccountImpl implements AccountIF {
 		
 		for (Map.Entry<String, Account> entry : hm.entrySet()) {
 			balance= Double.sum(balance, entry.getValue().getInitialCredit());
-		}		
+		}	
+		
+		List<Transaction> listTransOnAccount = getListTransactionsByCustomer(customerID);
+		for(Transaction t: listTransOnAccount) {
+			if(TransactionType.DEBIT.equals(t.getTransactionType())) {
+				balance = balance - t.getAmount();
+			}else if(TransactionType.CREDIT.equals(t.getTransactionType())) {
+				balance = balance + t.getAmount();
+			}
+		}
 		return balance;
 	}
 	
