@@ -47,7 +47,7 @@ table, th, td {
     $("#submit").click(function() {
     	var name = $("#name").val();
     	var initialCredit = $("#initialCredit").val();
-    	alert(initialCredit);
+
         $.ajax({
             url: '/customer',
             type: 'POST',
