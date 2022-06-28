@@ -17,7 +17,7 @@ import com.banks.types.TransactionType;
 public class DataStore implements DataStoreIF{
 
 	//Map of names to Person instances.
-	private static Map<String, Customer> customerMap = new HashMap<>();
+	private static Map<String, Customer> customerMap = new HashMap<String, Customer>();
 	
 	private static int accountNoToBeInc = 300;
 	
